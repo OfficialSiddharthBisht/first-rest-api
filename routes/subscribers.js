@@ -35,7 +35,12 @@ router.patch('/:id',getSubscriber,async (req , res)=>{
 })
 // Deleting one subscriber
 router.delete('/:id',getSubscriber,async(req ,res )=>{
-
+    try{
+        await res.subsciber.remove();
+        res.json({message : "Deleted Subsciber"})
+    }catch{
+        res.status(500).json({message : err.message})
+    }
 })
 
 // middleware 
