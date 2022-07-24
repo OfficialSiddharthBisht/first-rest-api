@@ -31,7 +31,18 @@ router.post('/',async (req , res)=>{
 })
 // Updating one subscriber (based on what user passes -> patch)
 router.patch('/:id',getSubscriber,async (req , res)=>{
-
+    if(req.body.name != null){
+        res.subsciber.name = req.body.name;
+    }
+    if(req.body.subscribedToChannel != null){
+        res.subsciber.subscribedToChannel = req.body.subscribedToChannel;
+    }
+    try{
+        const updatedSubscriber = await res.subsciber.save();
+        res.json(updatedSubscriber);
+    }catch(error){
+        res.status(400).json({message : error.message});
+    }
 })
 // Deleting one subscriber
 router.delete('/:id',getSubscriber,async(req ,res )=>{
